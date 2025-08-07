@@ -2,6 +2,9 @@
 
 import React, { useState } from "react";
 
+// Uses NEXT_PUBLIC_API_BASE_URL or defaults to localhost
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
+
 export default function Home() {
   const [file, setFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -19,7 +22,7 @@ export default function Home() {
     try {
       const form = new FormData();
       form.append("image", file);
-      const res = await fetch("http://localhost:8000/api/v1/recognize", {
+      const res = await fetch(`${API_BASE_URL}/api/v1/recognize`, {
         method: "POST",
         body: form,
       });
